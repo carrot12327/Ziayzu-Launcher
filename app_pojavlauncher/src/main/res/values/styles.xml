@@ -33,6 +33,13 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="TextAppearance.BrandTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="fontFamily">@font/brand_font</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
     <item name="dimension_tracker" type="id" />
     <style name="DimensionTracker">
         <item name="android:id">@id/dimension_tracker</item>

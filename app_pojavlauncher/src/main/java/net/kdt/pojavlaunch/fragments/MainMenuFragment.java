@@ -32,6 +32,7 @@ import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import java.io.File;
+import android.content.res.Resources;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -79,11 +80,18 @@ public class MainMenuFragment extends Fragment {
         // Header actions
         TextView addAccount = view.findViewById(R.id.btn_account1);
         ImageButton settings = view.findViewById(R.id.btn_settings);
+        ImageView headerLogo = view.findViewById(R.id.header_logo);
         if (addAccount != null) {
             addAccount.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true));
         }
         if (settings != null) {
             settings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, LauncherPreferenceFragment.class.getSimpleName(), null));
+        }
+        // Swap logo if a brand logo is provided (ic_brand_logo)
+        if (headerLogo != null) {
+            Resources res = getResources();
+            int brandResId = res.getIdentifier("ic_brand_logo", "drawable", requireContext().getPackageName());
+            if (brandResId != 0) headerLogo.setImageResource(brandResId);
         }
 
         // Footer arrows
@@ -95,6 +103,11 @@ public class MainMenuFragment extends Fragment {
         }
         if (diag != null) {
             diag.setOnClickListener(v -> openPath(v.getContext(), getCurrentProfileDirectory(), false));
+        }
+        // Footer version from BuildConfig
+        TextView footerVersion = view.findViewById(R.id.footer_version);
+        if (footerVersion != null) {
+            footerVersion.setText("v" + git.artdeell.mojo.BuildConfig.VERSION_NAME);
         }
 
         // Start overlay animations
