@@ -66,6 +66,12 @@
         android:key="notification_permission_request"
         />
 
+    <SwitchPreference
+        android:key="animated_overlays"
+        android:title="@string/pref_animated_overlays_title"
+        android:summary="@string/pref_animated_overlays_summary"
+        android:defaultValue="true"/>
+
 
 
 

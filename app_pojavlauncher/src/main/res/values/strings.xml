@@ -447,4 +447,10 @@
     <string name="footer_version_label">v1</string>
     <string name="footer_action_up">Scroll to top</string>
     <string name="footer_action_diag">Open instance folder</string>
+    <string name="pref_animated_overlays_title">Animated visual effects</string>
+    <string name="pref_animated_overlays_summary">Show animated background grid, floating orbs, shimmer, and particles on the home screen</string>
+    <string name="desc_settings_button">Open settings</string>
+    <string name="desc_footer_up">Scroll to top</string>
+    <string name="desc_footer_diag">Open instance directory</string>
+    <string name="desc_play_button">Play</string>
 </resources>

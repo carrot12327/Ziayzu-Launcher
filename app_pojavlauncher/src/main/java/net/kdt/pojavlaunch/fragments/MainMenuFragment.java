@@ -27,6 +27,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.instances.InstanceManager;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
@@ -98,21 +99,23 @@ public class MainMenuFragment extends Fragment {
 
         // Start overlay animations
         try {
-            ImageView orb1 = view.findViewById(R.id.orb1);
-            ImageView orb2 = view.findViewById(R.id.orb2);
-            ImageView p1 = view.findViewById(R.id.particle1);
-            ImageView p2 = view.findViewById(R.id.particle2);
-            Animation floatSlow = AnimationUtils.loadAnimation(requireContext(), R.anim.float_slow);
-            Animation floatParticle = AnimationUtils.loadAnimation(requireContext(), R.anim.float_particle);
-            if (orb1 != null) orb1.startAnimation(floatSlow);
-            if (orb2 != null) orb2.startAnimation(floatSlow);
-            if (p1 != null) p1.startAnimation(floatParticle);
-            if (p2 != null) p2.startAnimation(floatParticle);
+            if (LauncherPreferences.PREF_ANIMATED_OVERLAYS) {
+                ImageView orb1 = view.findViewById(R.id.orb1);
+                ImageView orb2 = view.findViewById(R.id.orb2);
+                ImageView p1 = view.findViewById(R.id.particle1);
+                ImageView p2 = view.findViewById(R.id.particle2);
+                Animation floatSlow = AnimationUtils.loadAnimation(requireContext(), R.anim.float_slow);
+                Animation floatParticle = AnimationUtils.loadAnimation(requireContext(), R.anim.float_particle);
+                if (orb1 != null) orb1.startAnimation(floatSlow);
+                if (orb2 != null) orb2.startAnimation(floatSlow);
+                if (p1 != null) p1.startAnimation(floatParticle);
+                if (p2 != null) p2.startAnimation(floatParticle);
+            }
         } catch (Exception ignored) {}
 
         // Start header shimmer sweep
         View shimmer = view.findViewById(R.id.header_shimmer);
-        if (shimmer != null) {
+        if (shimmer != null && LauncherPreferences.PREF_ANIMATED_OVERLAYS) {
             shimmer.setAlpha(1f);
             shimmer.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shimmer_sweep));
         }
