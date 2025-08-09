@@ -30,8 +30,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.content.SharedPreferences;
 import androidx.core.content.ContextCompat;
-import android.graphics.drawable.StateListDrawable;
-import android.util.TypedValue;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -121,43 +119,11 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
-    private void applyAnimatedButtons(boolean enabled) {
+    private void applyAnimatedButtons(boolean ignored) {
         if (mHomeButtons == null) return;
-        if (enabled) {
-            for (View v : mHomeButtons) {
-                if (v == null) continue;
-                v.setBackgroundResource(R.drawable.animated_button_background);
-                Drawable bg = v.getBackground();
-                if (bg instanceof StateListDrawable) {
-                    Drawable current = bg.getCurrent();
-                    if (current instanceof AnimationDrawable) {
-                        AnimationDrawable ad = (AnimationDrawable) current;
-                        ad.setEnterFadeDuration(500);
-                        ad.setExitFadeDuration(800);
-                        ad.start();
-                    }
-                } else if (bg instanceof AnimationDrawable) {
-                    AnimationDrawable ad = (AnimationDrawable) bg;
-                    ad.setEnterFadeDuration(500);
-                    ad.setExitFadeDuration(800);
-                    ad.start();
-                }
-            }
-        } else {
-            // Restore themed ripple background
-            for (View v : mHomeButtons) {
-                if (v == null) continue;
-                Drawable bg = v.getBackground();
-                if (bg instanceof AnimationDrawable) {
-                    ((AnimationDrawable) bg).stop();
-                } else if (bg instanceof StateListDrawable) {
-                    Drawable current = ((StateListDrawable) bg).getCurrent();
-                    if (current instanceof AnimationDrawable) {
-                        ((AnimationDrawable) current).stop();
-                    }
-                }
-                v.setBackgroundResource(R.drawable.ripple_menu_button);
-            }
+        for (View v : mHomeButtons) {
+            if (v == null) continue;
+            v.setBackgroundResource(R.drawable.ripple_menu_button);
         }
     }
 
