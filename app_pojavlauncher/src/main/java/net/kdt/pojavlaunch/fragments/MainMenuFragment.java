@@ -25,6 +25,8 @@ import net.kdt.pojavlaunch.instances.InstanceManager;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import java.io.File;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -69,6 +71,18 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
             return true;
         });
+
+        // Start animated background on the launcher home
+        View root = view.findViewById(R.id.fragment_menu_main);
+        if (root != null) {
+            Drawable background = root.getBackground();
+            if (background instanceof AnimationDrawable) {
+                AnimationDrawable animationDrawable = (AnimationDrawable) background;
+                animationDrawable.setEnterFadeDuration(1000);
+                animationDrawable.setExitFadeDuration(1500);
+                animationDrawable.start();
+            }
+        }
     }
 
     private File getCurrentProfileDirectory() {
