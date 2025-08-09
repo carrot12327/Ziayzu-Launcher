@@ -13,4 +13,12 @@
 
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#B2B2B2</color>
+
+    <!-- Brand colors -->
+    <color name="brand_cyan">#64C8FF</color>
+    <color name="brand_green">#4ADE80</color>
+    <color name="brand_blue">#3B82F6</color>
+    <color name="brand_purple_dark">#1E1E3F</color>
+    <color name="brand_bg_start">#0A0A1F</color>
+    <color name="brand_bg_end">#0F051A</color>
 </resources>

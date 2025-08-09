@@ -443,4 +443,8 @@
     <string name="auth_select_elyby">Ely.by account</string>
     <string name="auth_select_local">Local account</string>
     <string name="instance_dir_missing">Instance is missing</string>
+    <string name="header_add_account">Add account</string>
+    <string name="footer_version_label">v1</string>
+    <string name="footer_action_up">Scroll to top</string>
+    <string name="footer_action_diag">Open instance folder</string>
 </resources>

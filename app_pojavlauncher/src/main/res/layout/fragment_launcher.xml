@@ -111,18 +111,18 @@
 						android:orientation="horizontal"
 						android:gravity="center_vertical"
 						android:layout_marginEnd="8dp">
-						<TextView
-							android:id="@+id/btn_account1"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="Add account"
-							android:textColor="@color/primary_text"
-							android:textSize="14sp"
-							android:background="@drawable/bg_chip_glass"
-							android:paddingLeft="12dp"
-							android:paddingRight="12dp"
-							android:paddingTop="8dp"
-							android:paddingBottom="8dp"/>
+											<TextView
+						android:id="@+id/btn_account1"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/header_add_account"
+						android:textColor="@color/primary_text"
+						android:textSize="14sp"
+						android:background="@drawable/bg_chip_glass"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:paddingTop="8dp"
+						android:paddingBottom="8dp"/>
 
 						<ImageButton
 							android:id="@+id/btn_settings"
