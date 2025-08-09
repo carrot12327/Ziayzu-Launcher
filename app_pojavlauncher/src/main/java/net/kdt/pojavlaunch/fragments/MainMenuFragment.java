@@ -30,6 +30,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.content.SharedPreferences;
 import androidx.core.content.ContextCompat;
+import android.graphics.drawable.StateListDrawable;
+import android.util.TypedValue;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -37,6 +39,7 @@ public class MainMenuFragment extends Fragment {
     private mcVersionSpinner mVersionSpinner;
     private View mRootView;
     private SharedPreferences.OnSharedPreferenceChangeListener mAnimatedThemePrefListener;
+    private View[] mHomeButtons;
 
     public MainMenuFragment(){
         super(R.layout.fragment_launcher);
@@ -54,6 +57,12 @@ public class MainMenuFragment extends Fragment {
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
+
+        mHomeButtons = new View[]{
+                mNewsButton, mDiscordButton, mCustomControlButton,
+                mInstallJarButton, mShareLogsButton, mOpenDirectoryButton,
+                mPlayButton
+        };
 
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
@@ -80,12 +89,14 @@ public class MainMenuFragment extends Fragment {
         // Prepare animated background root view
         mRootView = view.findViewById(R.id.fragment_menu_main);
         applyAnimatedBackground(LauncherPreferences.PREF_ANIMATED_THEME);
+        applyAnimatedButtons(LauncherPreferences.PREF_ANIMATED_THEME);
 
         // Listen for live preference changes
         mAnimatedThemePrefListener = (prefs, key) -> {
             if ("animated_theme".equals(key)) {
                 boolean enabled = prefs.getBoolean("animated_theme", true);
                 applyAnimatedBackground(enabled);
+                applyAnimatedButtons(enabled);
             }
         };
     }
@@ -110,6 +121,48 @@ public class MainMenuFragment extends Fragment {
         }
     }
 
+    private void applyAnimatedButtons(boolean enabled) {
+        if (mHomeButtons == null) return;
+        if (enabled) {
+            for (View v : mHomeButtons) {
+                if (v == null) continue;
+                v.setBackgroundResource(R.drawable.animated_button_background);
+                Drawable bg = v.getBackground();
+                if (bg instanceof StateListDrawable) {
+                    Drawable current = bg.getCurrent();
+                    if (current instanceof AnimationDrawable) {
+                        AnimationDrawable ad = (AnimationDrawable) current;
+                        ad.setEnterFadeDuration(500);
+                        ad.setExitFadeDuration(800);
+                        ad.start();
+                    }
+                } else if (bg instanceof AnimationDrawable) {
+                    AnimationDrawable ad = (AnimationDrawable) bg;
+                    ad.setEnterFadeDuration(500);
+                    ad.setExitFadeDuration(800);
+                    ad.start();
+                }
+            }
+        } else {
+            // Restore selectable ripple background
+            TypedValue outValue = new TypedValue();
+            requireContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            for (View v : mHomeButtons) {
+                if (v == null) continue;
+                Drawable bg = v.getBackground();
+                if (bg instanceof AnimationDrawable) {
+                    ((AnimationDrawable) bg).stop();
+                } else if (bg instanceof StateListDrawable) {
+                    Drawable current = ((StateListDrawable) bg).getCurrent();
+                    if (current instanceof AnimationDrawable) {
+                        ((AnimationDrawable) current).stop();
+                    }
+                }
+                v.setBackgroundResource(outValue.resourceId);
+            }
+        }
+    }
+
     private File getCurrentProfileDirectory() {
         return InstanceManager.getSelectedListedInstance().getGameDirectory();
     }
@@ -121,7 +174,9 @@ public class MainMenuFragment extends Fragment {
         // Ensure current state is applied and listen for changes
         if (LauncherPreferences.DEFAULT_PREF != null) {
             LauncherPreferences.DEFAULT_PREF.registerOnSharedPreferenceChangeListener(mAnimatedThemePrefListener);
-            applyAnimatedBackground(LauncherPreferences.DEFAULT_PREF.getBoolean("animated_theme", true));
+            boolean enabled = LauncherPreferences.DEFAULT_PREF.getBoolean("animated_theme", true);
+            applyAnimatedBackground(enabled);
+            applyAnimatedButtons(enabled);
         }
     }
 
