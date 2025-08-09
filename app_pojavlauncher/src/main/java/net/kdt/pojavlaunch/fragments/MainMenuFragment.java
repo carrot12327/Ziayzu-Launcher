@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.instances.InstanceManager;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import java.io.File;
@@ -71,6 +74,27 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
             return true;
         });
+
+        // Header actions
+        TextView addAccount = view.findViewById(R.id.btn_account1);
+        ImageButton settings = view.findViewById(R.id.btn_settings);
+        if (addAccount != null) {
+            addAccount.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true));
+        }
+        if (settings != null) {
+            settings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, LauncherPreferenceFragment.class.getSimpleName(), null));
+        }
+
+        // Footer arrows
+        ImageButton up = view.findViewById(R.id.btn_footer_up);
+        ImageButton diag = view.findViewById(R.id.btn_footer_diag);
+        ScrollView scroll = view.findViewById(R.id.main_scroll);
+        if (up != null && scroll != null) {
+            up.setOnClickListener(v -> scroll.smoothScrollTo(0, 0));
+        }
+        if (diag != null) {
+            diag.setOnClickListener(v -> openPath(v.getContext(), getCurrentProfileDirectory(), false));
+        }
 
         // Start overlay animations
         try {
