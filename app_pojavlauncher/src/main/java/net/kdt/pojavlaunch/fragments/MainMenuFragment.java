@@ -28,11 +28,15 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import java.io.File;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
+import androidx.core.content.ContextCompat;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
+    private View mRootView;
+    private SharedPreferences.OnSharedPreferenceChangeListener mAnimatedThemePrefListener;
 
     public MainMenuFragment(){
         super(R.layout.fragment_launcher);
@@ -73,16 +77,36 @@ public class MainMenuFragment extends Fragment {
             return true;
         });
 
-        // Start animated background on the launcher home
-        View root = view.findViewById(R.id.fragment_menu_main);
-        if (root != null && LauncherPreferences.PREF_ANIMATED_THEME) {
-            Drawable background = root.getBackground();
+        // Prepare animated background root view
+        mRootView = view.findViewById(R.id.fragment_menu_main);
+        applyAnimatedBackground(LauncherPreferences.PREF_ANIMATED_THEME);
+
+        // Listen for live preference changes
+        mAnimatedThemePrefListener = (prefs, key) -> {
+            if ("animated_theme".equals(key)) {
+                boolean enabled = prefs.getBoolean("animated_theme", true);
+                applyAnimatedBackground(enabled);
+            }
+        };
+    }
+
+    private void applyAnimatedBackground(boolean enabled) {
+        if (mRootView == null) return;
+        if (enabled) {
+            mRootView.setBackgroundResource(R.drawable.animated_launcher_background);
+            Drawable background = mRootView.getBackground();
             if (background instanceof AnimationDrawable) {
                 AnimationDrawable animationDrawable = (AnimationDrawable) background;
                 animationDrawable.setEnterFadeDuration(1000);
                 animationDrawable.setExitFadeDuration(1500);
                 animationDrawable.start();
             }
+        } else {
+            Drawable background = mRootView.getBackground();
+            if (background instanceof AnimationDrawable) {
+                ((AnimationDrawable) background).stop();
+            }
+            mRootView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.background_app));
         }
     }
 
@@ -94,6 +118,19 @@ public class MainMenuFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ExtraCore.setValue(ExtraConstants.REFRESH_ACCOUNT_SPINNER, true);
+        // Ensure current state is applied and listen for changes
+        if (LauncherPreferences.DEFAULT_PREF != null) {
+            LauncherPreferences.DEFAULT_PREF.registerOnSharedPreferenceChangeListener(mAnimatedThemePrefListener);
+            applyAnimatedBackground(LauncherPreferences.DEFAULT_PREF.getBoolean("animated_theme", true));
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (LauncherPreferences.DEFAULT_PREF != null && mAnimatedThemePrefListener != null) {
+            LauncherPreferences.DEFAULT_PREF.unregisterOnSharedPreferenceChangeListener(mAnimatedThemePrefListener);
+        }
+        super.onPause();
     }
 
     private void runInstallerWithConfirmation(boolean isCustomArgs) {
