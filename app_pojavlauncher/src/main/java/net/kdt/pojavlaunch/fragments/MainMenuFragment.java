@@ -123,7 +123,7 @@ public class MainMenuFragment extends Fragment {
         if (mHomeButtons == null) return;
         for (View v : mHomeButtons) {
             if (v == null) continue;
-            v.setBackgroundResource(R.drawable.ripple_menu_button);
+            v.setBackgroundResource(R.drawable.ripple_home_button);
         }
     }
 
