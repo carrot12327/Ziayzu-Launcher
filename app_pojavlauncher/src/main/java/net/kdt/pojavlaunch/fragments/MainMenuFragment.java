@@ -72,7 +72,7 @@ public class MainMenuFragment extends Fragment {
             return true;
         });
 
-        // Start overlay animations (safe no-op if views not present)
+        // Start overlay animations
         try {
             ImageView orb1 = view.findViewById(R.id.orb1);
             ImageView orb2 = view.findViewById(R.id.orb2);
@@ -84,7 +84,13 @@ public class MainMenuFragment extends Fragment {
             if (orb2 != null) orb2.startAnimation(floatSlow);
             if (p1 != null) p1.startAnimation(floatParticle);
             if (p2 != null) p2.startAnimation(floatParticle);
-        } catch (Exception ignored) {
+        } catch (Exception ignored) {}
+
+        // Start header shimmer sweep
+        View shimmer = view.findViewById(R.id.header_shimmer);
+        if (shimmer != null) {
+            shimmer.setAlpha(1f);
+            shimmer.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shimmer_sweep));
         }
     }
 
