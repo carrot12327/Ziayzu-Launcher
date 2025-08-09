@@ -93,6 +93,35 @@
 					android:textSize="18sp"
 					android:paddingStart="10dp"
 					android:fontFamily="sans-serif-medium"/>
+
+				<LinearLayout
+					android:id="@+id/header_accounts"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="center_vertical"
+					android:layout_marginEnd="8dp">
+					<TextView
+						android:id="@+id/btn_account1"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Add account"
+						android:textColor="@color/primary_text"
+						android:textSize="14sp"
+						android:background="@drawable/bg_chip_glass"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:paddingTop="8dp"
+						android:paddingBottom="8dp"/>
+
+					<ImageButton
+						android:id="@+id/btn_settings"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_marginStart="8dp"
+						android:background="@drawable/bg_chip_glass"
+						android:src="@drawable/ic_px_sliders"/>
+				</LinearLayout>
 			</LinearLayout>
 
 			<androidx.constraintlayout.widget.Guideline
@@ -211,19 +240,37 @@
 			android:orientation="horizontal"
 			android:gravity="center_vertical"
 			android:weightSum="2">
-			<TextView
-				android:layout_width="0dp"
+							<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="Ziayzu Launcher"
+					android:textColor="@color/primary_text"
+					android:textStyle="bold"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="v1"
+					android:textColor="@color/primary_text"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="Ziayzu Launcher"
-				android:textColor="@color/primary_text"
-				android:textStyle="bold"/>
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="v1"
-				android:textColor="@color/primary_text"/>
-		</LinearLayout>
+				android:orientation="horizontal"
+				android:gravity="end"
+				android:paddingTop="8dp"
+				android:gap="8dp">
+				<View
+					android:layout_width="38dp"
+					android:layout_height="38dp"
+					android:background="@drawable/bg_chip_glass"/>
+				<View
+					android:layout_width="38dp"
+					android:layout_height="38dp"
+					android:background="@drawable/bg_chip_glass"/>
+			</LinearLayout>
+</LinearLayout>
 	</LinearLayout>
 
 	<com.kdt.mcgui.MineButton
