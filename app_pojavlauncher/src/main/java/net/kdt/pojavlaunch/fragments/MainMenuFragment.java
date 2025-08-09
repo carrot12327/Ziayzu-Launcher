@@ -144,9 +144,7 @@ public class MainMenuFragment extends Fragment {
                 }
             }
         } else {
-            // Restore selectable ripple background
-            TypedValue outValue = new TypedValue();
-            requireContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            // Restore themed ripple background
             for (View v : mHomeButtons) {
                 if (v == null) continue;
                 Drawable bg = v.getBackground();
@@ -158,7 +156,7 @@ public class MainMenuFragment extends Fragment {
                         ((AnimationDrawable) current).stop();
                     }
                 }
-                v.setBackgroundResource(outValue.resourceId);
+                v.setBackgroundResource(R.drawable.ripple_menu_button);
             }
         }
     }
