@@ -10,6 +10,56 @@
 	android:orientation="vertical"
 	android:background="@drawable/bg_launcher_grad"
 	>
+	<!-- Animated overlay container -->
+	<FrameLayout
+		android:id="@+id/overlay_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="@dimen/_62sdp"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent">
+
+		<ImageView
+			android:id="@+id/orb1"
+			android:layout_width="220dp"
+			android:layout_height="220dp"
+			android:layout_marginStart="-40dp"
+			android:layout_marginTop="-20dp"
+			android:src="@drawable/orb_blue"
+			android:alpha="0.4"
+			android:layout_gravity="start|top"/>
+
+		<ImageView
+			android:id="@+id/orb2"
+			android:layout_width="180dp"
+			android:layout_height="180dp"
+			android:layout_marginEnd="-30dp"
+			android:layout_marginTop="120dp"
+			android:src="@drawable/orb_blue"
+			android:alpha="0.35"
+			android:layout_gravity="end|top"/>
+
+		<ImageView
+			android:id="@+id/particle1"
+			android:layout_width="6dp"
+			android:layout_height="6dp"
+			android:layout_marginStart="40dp"
+			android:layout_marginBottom="-20dp"
+			android:src="@drawable/particle_dot"
+			android:alpha="0.5"
+			android:layout_gravity="start|bottom"/>
+
+		<ImageView
+			android:id="@+id/particle2"
+			android:layout_width="6dp"
+			android:layout_height="6dp"
+			android:layout_marginEnd="60dp"
+			android:layout_marginBottom="-30dp"
+			android:src="@drawable/particle_dot"
+			android:alpha="0.5"
+			android:layout_gravity="end|bottom"/>
+	</FrameLayout>
+
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
@@ -183,7 +233,7 @@
 
 		android:layout_marginHorizontal="@dimen/_17sdp"
 		android:layout_marginBottom="@dimen/_15sdp"
-
+		android:background="@drawable/bg_play_button"
 		android:textAllCaps="true"
 		android:text="@string/main_play"
 		app:layout_constraintBottom_toBottomOf="parent"

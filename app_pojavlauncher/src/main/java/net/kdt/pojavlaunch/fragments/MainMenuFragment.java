@@ -6,8 +6,11 @@ import static net.kdt.pojavlaunch.Tools.shareLog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +71,21 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
             return true;
         });
+
+        // Start overlay animations (safe no-op if views not present)
+        try {
+            ImageView orb1 = view.findViewById(R.id.orb1);
+            ImageView orb2 = view.findViewById(R.id.orb2);
+            ImageView p1 = view.findViewById(R.id.particle1);
+            ImageView p2 = view.findViewById(R.id.particle2);
+            Animation floatSlow = AnimationUtils.loadAnimation(requireContext(), R.anim.float_slow);
+            Animation floatParticle = AnimationUtils.loadAnimation(requireContext(), R.anim.float_particle);
+            if (orb1 != null) orb1.startAnimation(floatSlow);
+            if (orb2 != null) orb2.startAnimation(floatSlow);
+            if (p1 != null) p1.startAnimation(floatParticle);
+            if (p2 != null) p2.startAnimation(floatParticle);
+        } catch (Exception ignored) {
+        }
     }
 
     private File getCurrentProfileDirectory() {
