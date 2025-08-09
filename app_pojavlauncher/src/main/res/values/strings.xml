@@ -443,4 +443,6 @@
     <string name="auth_select_elyby">Ely.by account</string>
     <string name="auth_select_local">Local account</string>
     <string name="instance_dir_missing">Instance is missing</string>
+    <string name="preference_animated_theme_title">Animated home background</string>
+    <string name="preference_animated_theme_description">Animate the launcher home background with a subtle gradient. May increase battery usage slightly.</string>
 </resources>

@@ -66,6 +66,12 @@
         android:key="notification_permission_request"
         />
 
+    <SwitchPreference
+        android:key="animated_theme"
+        android:title="@string/preference_animated_theme_title"
+        android:summary="@string/preference_animated_theme_description"
+        android:defaultValue="true"/>
+
 
 
 

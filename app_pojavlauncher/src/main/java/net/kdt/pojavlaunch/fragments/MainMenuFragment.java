@@ -23,6 +23,7 @@ import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.instances.InstanceManager;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 import android.graphics.drawable.AnimationDrawable;
@@ -74,7 +75,7 @@ public class MainMenuFragment extends Fragment {
 
         // Start animated background on the launcher home
         View root = view.findViewById(R.id.fragment_menu_main);
-        if (root != null) {
+        if (root != null && LauncherPreferences.PREF_ANIMATED_THEME) {
             Drawable background = root.getBackground();
             if (background instanceof AnimationDrawable) {
                 AnimationDrawable animationDrawable = (AnimationDrawable) background;
